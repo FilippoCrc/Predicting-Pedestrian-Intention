@@ -71,7 +71,6 @@ class JAAD(object):
         self._annotation_appearance_path = join(self._jaad_path, 'annotations_appearance')
         self._clips_path = join(self._jaad_path, 'JAAD_clips')
         self._images_path = join(self._jaad_path, 'images')
-        # self._mask_path = join(self._jaad_path,'mask')
 
     # Path generators
     @property
@@ -200,10 +199,11 @@ class JAAD(object):
             while success:
                 self.update_progress(img_count / num_frames)
                 img_count += 1
-                if not exists(join(save_images_path, "{:05d}.png").format(frame_num)):
-                    cv2.imwrite(join(save_images_path, "{:05d}.png").format(frame_num), image)
-                else:
-                    print('path %s already exists')
+                img_path = join(save_images_path, "{:05d}.png".format(frame_num))
+                if not exists(img_path):
+                    cv2.imwrite(img_path, image)
+                #else:
+                #    print('path {} already exists'.format(img_path))
                 success, image = vidcap.read()
                 frame_num += 1
             if num_frames != img_count:
