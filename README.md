@@ -38,20 +38,32 @@ Link to our sub-set : https://drive.google.com/file/d/1-89ibP96qLaDEpR6okq4TjJ6d
 2. Extract semantic masks using a pretrained DeepLabV3Plus model on Cityscapes.
 3. Resize to 224x224 for input to the VGG16 model.
 4. Model: DeepLabV3Plus_resnet101. which can be found here : https://github.com/VainF/DeepLabV3Plus-Pytorch?tab=readme-ov-file
+   
+<img src="./pics/global_context.png" alt="drawing" width="400"/>
+
 
 **Local Context:**
 1. Crop images based on bounding box coordinates and resize them to 224x224 for the VGG16 model.
+<img src="./pics/local_context.png" alt="drawing" width="200"/>
+
 
 **Pose Keypoints:**
 1. Use the pretrained OpenPose model to extract 18 keypoints, resulting in a 36-point vector.
     The openpose model is available at https://github.com/Hzzone/pytorch-openpose
+   
+<img src="./pics/pose.png" alt="drawing" width="200"/>
+
 
 **Bounding Box:**
 1. Extract bounding box data directly from the JAAD dataset.
+   
+<img src="./pics/bbox.png" alt="drawing" width="200"/>
+
 
 ## OUR MODEL:
-![Alt text](./pics/model.png)
+<img src="./pics/model.png" alt="drawing" width="400"/>
 
+Our model doesn't use the speed feature input.
 ## AUTHORS:
 Jacopo Tamarri,
 Filippo Croce
