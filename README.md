@@ -50,7 +50,7 @@ Link to our sub-set : https://drive.google.com/file/d/1-89ibP96qLaDEpR6okq4TjJ6d
 1. Extract bounding box data directly from the JAAD dataset.
 
 ## OUR MODEL:
-
+![Alt text](./pics/model.png)
 
 ## AUTHORS:
 Jacopo Tamarri,
