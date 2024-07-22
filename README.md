@@ -3,7 +3,7 @@
 
 *This repository contains a reimplementation of the paper "Predicting Pedestrian Crossing Intention with Feature Fusion and Spatio-Temporal Attention" https://arxiv.org/pdf/2104.05485, implemented using TensorFlow.*
 
-Our implementation use a slightly simplified version of the original model now based on Pythorch.
+Our implementation use a slightly simplified version of the original model now based on Pytorch.
 
 ## ABSTRACT
 
