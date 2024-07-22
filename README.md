@@ -1,17 +1,13 @@
 
 Predicting Pedestrian Crossing Intention with Feature Fusion and Spatio-Temporal Attention
 
-This Repo contain a reimplementation of the homonimus paper of Pedestrian Crossing Intention Prediction (https://arxiv.org/pdf/2104.05485) implemented on TensorFlow.
+This repository contains a reimplementation of the paper "Predicting Pedestrian Crossing Intention with Feature Fusion and Spatio-Temporal Attention" https://arxiv.org/pdf/2104.05485, implemented using TensorFlow.
 
 Our implementation use a slightly simplified version of the original model now based on Pythorch.
 
 ABSTRACT
 
-Predicting pedestrian behavior is a crucial prerequisite for deploying Automated Driving Systems
-(ADS) in the real-world. 
-The aim of the subject is to recognize the pedestrian crossing intention in real-time, with short time reaction especially in urban contex such as citis. 
-
-Our work use deep neural network model with Rnn for extracting potentially usefull information of the sourranding contex, resolvin the problem of previous implementation by introducing also the temporal domain.
+Predicting pedestrian behavior is crucial for deploying Automated Driving Systems (ADS) in real-world scenarios. This project aims to recognize pedestrian crossing intention in real-time, focusing on urban contexts where rapid reaction times are necessary. Our implementation uses a deep neural network model with RNNs to extract useful information from the surrounding context, incorporating the temporal domain to resolve issues present in previous implementations.
 
 Regarding the imput of our model we made 2 principal branch: the non visual brach and the visual brach. 
 The first one extract for each pedestrian in each frame of the video the pose and the bounding box. 
@@ -19,12 +15,9 @@ The other brach instead extract the semantic mask of the whole frame, named, glo
 
 We fuse different feature such as sequences of RGB images, semantic segmentation masks, pose keypoints and bounding box in an optimum way using attention mechanisms and a stack of recurrent neural networks.
 
-Extensive comparative experiments on the JAAD pedestrian action prediction benchmark demonstrate the effectiveness of the proposed implementation, where state-of-the-art performance was nearly achived.
-
 DATASET
 
-for the dataset we use the well-known JAAD dataset containing 346 video of different duration.
-The dataset is available here https://data.nvision2.eecs.yorku.ca/JAAD_dataset/.
+We use the JAAD dataset, which contains 346 videos of varying lengths. The dataset is available here https://data.nvision2.eecs.yorku.ca/JAAD_dataset/.
 
 We have copied the jaad_data.py corresponding repositories into this project's root directory for managin the interface of the dataset.
 
@@ -32,30 +25,33 @@ In order to use the dataset in the correct way we use the function split_clips_t
 
 Above operation will create a folder called images and save the extracted images grouped by corresponding video ids in the ./JAAD/images folder.
 
-After this basic operation we did a precise work of dataset balancig, because JAAD was severly unbalanced, leading to bias for our  model.
+After this basic operation we did a precise work of dataset balancig, because JAAD was severly unbalanced, leading to bias for our model.
 
-We use the already implemented function generate_database() to generate a custom dataset with less videos, around
-60 to resolve the probelm of computation.
+We use the already implemented function generate_database() to generate a custom balanced dataset with less videos, around 60 to resolve also the problem of computation.
 
+Link to our sub-set : https://drive.google.com/file/d/1-89ibP96qLaDEpR6okq4TjJ6dTAUYYeN/view?usp=drive_link
 
 TRAINING
 
-For the feature:
+Global Context:
+1. Resize images to 512x512 for faster computation
+2. Extract semantic masks using a pretrained DeepLabV3Plus model on Cityscapes.
+3. Resize to 224x224 for input to the VGG16 model.
+4. Model: DeepLabV3Plus_resnet101. which can be found here : https://github.com/VainF/DeepLabV3Plus-Pytorch?tab=readme-ov-file
 
-Global context: we have extracted the semantic mask with a pretrained deeplab model on cityscapes in order to have the best possible semantic mask we take the best model available suitable for our problem.
-before the semantic mask computation we have resized the image to 512x512 for faster computation.
-After the semantic mask computation we have resized the image to 224x224 for the input of the Vgg16 model.
-To be more precise the model is DeepLAbV3Plus_mobilenet which can be found here : https://github.com/VainF/DeepLabV3Plus-Pytorch?tab=readme-ov-file
+Local Context:
+1. Crop images based on bounding box coordinates and resize them to 224x224 for the VGG16 model.
 
-Local context: we just cropped the image on the BoundingBox coordinate and then resized on 224x224 dimension 
-needed for the Vgg16 model used.
+Pose Keypoints:
+1. Use the pretrained OpenPose model to extract 18 keypoints, resulting in a 36-point vector.
+    The openpose model is available at https://github.com/Hzzone/pytorch-openpose
 
-Pose keypoint: for the pose key point we used the pretrained model named openpose to get 18 keypoint in the for of 36 point.
-
-Bounding box: the Bounding Box was taken directly from the Jaad dataset.
-
+Bounding Box:
+1. Extract bounding box data directly from the JAAD dataset.
 
 
 AUTHORS
-Jacopo Tamarri, Filippo Croce
+Jacopo Tamarri
+Filippo Croce
+
 
