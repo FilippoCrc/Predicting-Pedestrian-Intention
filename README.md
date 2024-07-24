@@ -64,6 +64,9 @@ Link to our sub-set : https://drive.google.com/file/d/1-89ibP96qLaDEpR6okq4TjJ6d
 <img src="./pics/model.png" alt="drawing" width="400"/>
 
 Our model doesn't use the speed feature input.
+We provide two models with the only difference in the order of input in the non-vision branch. In fact swapping the above order we achieve better scores, but we decide to keep the original one and the best one into the two files:
+- `main.ipynb`
+- `main_best.ipynb`
 ## AUTHORS:
 Jacopo Tamarri,
 Filippo Croce
